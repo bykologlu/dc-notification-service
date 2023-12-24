@@ -84,4 +84,4 @@ Don't forget to give the project a star :)  Thanks again!
 
 - [ ] Integrate Twilio for SMS notifications.
 - [ ] Integrate MailChimp for email services.
-- [ ] Integrate Firebase for push notifications.
+- [x] Integrate Firebase for push notifications.
