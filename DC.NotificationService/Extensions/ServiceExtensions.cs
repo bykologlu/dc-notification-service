@@ -5,6 +5,8 @@ using DC.NotificationService.Managers.Email;
 using DC.NotificationService.Managers.PushNotification;
 using DC.NotificationService.Managers.Sms;
 using DC.NotificationService.Settings;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +17,7 @@ namespace DC.NotificationService.Extensions
         public static IServiceCollection AddPushNotificationService(this IServiceCollection services)
         {
             services.AddMainService();
-            services.AddSingleton<IPushNotificationService, PushNotificationManager>();
+            services.AddSingleton<IPushNotificationService, FirebaseManager>();
             return services;
         }
 
@@ -53,6 +55,33 @@ namespace DC.NotificationService.Extensions
             return services;
         }
 
+        public static IServiceCollection AddNotificationService(this IServiceCollection services, IConfiguration configuration = null, PushNotificationSettings settings = null)
+        {
+            services.AddMainService();
+
+            if (settings == null)
+            {
+                settings = configuration.GetSection("PushNotificationSettings") as PushNotificationSettings;
+            }
+
+            services.AddSingleton<PushNotificationSettings>(settings);
+
+            services.AddTransient<Func<PushNotificationProvider, IPushNotificationService>>(serviceProvider => providerType =>
+            {
+                switch (providerType)
+                {
+                    case PushNotificationProvider.Firebase:
+                    {
+                        return serviceProvider.GetRequiredService<FirebaseManager>();
+                    }
+                    default:
+                        throw new NotImplementedException("The push notification provider is not registered.");
+                }
+            });
+
+            
+            return services;
+        }
         private static void AddMainService(this IServiceCollection services)
         {
             services.AddSingleton<INotificationServiceFactory, NotificationServiceFactory>();

@@ -6,6 +6,6 @@ namespace DC.NotificationService.Interfaces
     {
         Task SendEmailAsync(EmailMessage emailMessage);
         Task SendSmsAsync();
-        Task SendPushNotificationAsync();
+        Task SendPushNotificationAsync(PushNotificationMessage pushNotificationMessage);
     }
 }

@@ -4,11 +4,24 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RepositoryUrl>https://github.com/bykologlu/DC.NotificationService</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/bykologlu/DC.NotificationService</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>DC.NotificationService</PackageId>
+    <Authors>bykologlu</Authors>
+    <Version>1.1.0</Version>
+    <Description>A versatile .NET 7 library for unified handling of email, SMS and push notifications with dynamic provider selection</Description>
+    <PackageTags>sms sender; email sender; push notification sender;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Managers\Sms\" />
   </ItemGroup>
 
 </Project>
