@@ -9,16 +9,18 @@ namespace DC.NotificationService.Managers
         private readonly Func<EmailProvider, IEmailService> _emailServiceAccessor;
         private readonly Func<PushNotificationProvider, IPushNotificationService> _pushNotificationAccessor;
 
-        public NotificationServiceFactory(Func<EmailProvider, IEmailService> emailServiceAccessor, 
-                                          Func<PushNotificationProvider, IPushNotificationService> pushNotificationAccessor)
+        public NotificationServiceFactory(Func<EmailProvider, IEmailService> emailServiceAccessor = null,
+											Func<PushNotificationProvider, IPushNotificationService> pushNotificationAccessor = null)
         {
-            _emailServiceAccessor = emailServiceAccessor;
-            _pushNotificationAccessor = pushNotificationAccessor;
-        }
+	        _emailServiceAccessor = emailServiceAccessor;
+			_pushNotificationAccessor = pushNotificationAccessor;
+		}
 
-        public async Task SendEmailAsync(EmailMessage emailMessage)
+		public async Task SendEmailAsync(EmailMessage emailMessage)
         {
-            await _emailServiceAccessor(emailMessage.EmailProvider).SendEmailAsync(emailMessage);
+	        if (_emailServiceAccessor == null) throw new InvalidOperationException("Email service is not configured.");
+
+			await _emailServiceAccessor(emailMessage.EmailProvider).SendEmailAsync(emailMessage);
         }
 
         public async Task SendSmsAsync()
@@ -28,7 +30,9 @@ namespace DC.NotificationService.Managers
 
         public async Task SendPushNotificationAsync(PushNotificationMessage pushNotificationMessage)
         {
-            await _pushNotificationAccessor(pushNotificationMessage.PushNotificationProvider).SendNotificationAsync(pushNotificationMessage);
+	        if (pushNotificationMessage == null) throw new InvalidOperationException("Push Notification service is not configured.");
+
+			await _pushNotificationAccessor(pushNotificationMessage.PushNotificationProvider).SendNotificationAsync(pushNotificationMessage);
         }
     }
 }
