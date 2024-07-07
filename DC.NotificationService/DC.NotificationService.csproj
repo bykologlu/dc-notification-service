@@ -7,7 +7,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageId>DC.NotificationService</PackageId>
     <Authors>bykologlu</Authors>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Description>A versatile .NET 7 library for unified handling of email, SMS and push notifications with dynamic provider selection</Description>
     <PackageTags>sms sender; email sender; push notification sender;</PackageTags>
   </PropertyGroup>
