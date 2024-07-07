@@ -1,4 +1,5 @@
 ﻿using DC.NotificationService.Enums;
+using System.Collections.Generic;
 
 namespace DC.NotificationService.Models
 {

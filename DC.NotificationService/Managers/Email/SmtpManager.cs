@@ -1,8 +1,10 @@
 ﻿using DC.NotificationService.Interfaces;
 using DC.NotificationService.Models;
 using DC.NotificationService.Settings;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace DC.NotificationService.Managers.Email
 {
@@ -30,19 +32,20 @@ namespace DC.NotificationService.Managers.Email
                     IsBodyHtml = emailMessage.IsHtml
                 };
 
-                foreach (var to in emailMessage.To)
-                {
-                    mailMessage.To.Add(to);
-                }
 
-                foreach (var cc in emailMessage.Cc)
+				foreach (var to in emailMessage.To)
                 {
-                    mailMessage.CC.Add(cc);
+					mailMessage.To.Append(new MailAddress(to));
+				}
+
+				foreach (var cc in emailMessage.Cc)
+                {
+                    mailMessage.CC.Append(new MailAddress(cc));
                 }
 
                 foreach (var bcc in emailMessage.Bcc)
                 {
-                    mailMessage.Bcc.Add(bcc);
+                    mailMessage.Bcc.Append(new MailAddress(bcc));
                 }
 
                 await client.SendMailAsync(mailMessage);

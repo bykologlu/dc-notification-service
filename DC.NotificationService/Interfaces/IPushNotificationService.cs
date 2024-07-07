@@ -1,4 +1,5 @@
 ﻿using DC.NotificationService.Models;
+using System.Threading.Tasks;
 
 namespace DC.NotificationService.Interfaces
 {

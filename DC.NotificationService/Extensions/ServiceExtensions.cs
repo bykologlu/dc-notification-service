@@ -7,6 +7,8 @@ using DC.NotificationService.Managers.Sms;
 using DC.NotificationService.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+
 
 namespace DC.NotificationService.Extensions
 {
@@ -54,10 +56,14 @@ namespace DC.NotificationService.Extensions
 
             if (settings == null)
             {
-                settings = configuration.GetSection("EmailSettings") as EmailSettings;
-            }
+				settings = configuration.GetSection("EmailSettings").Get<EmailSettings>();
+			}
 
-            services.AddScoped<Func<EmailProvider, IEmailService>>(serviceProvider => providerType =>
+			if (settings != null)
+			{
+				services.AddSingleton(settings);
+			}
+			services.AddScoped<Func<EmailProvider, IEmailService>>(serviceProvider => providerType =>
             {
                 switch (providerType)
                 {

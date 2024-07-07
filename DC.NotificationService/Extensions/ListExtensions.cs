@@ -1,4 +1,7 @@
-﻿namespace DC.NotificationService.Extensions
+﻿using System;
+using System.Collections.Generic;
+
+namespace DC.NotificationService.Extensions
 {
     public static class ListExtensions
     {

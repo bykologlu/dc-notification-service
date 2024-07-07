@@ -5,6 +5,9 @@ using DC.NotificationService.Settings;
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 namespace DC.NotificationService.Managers.PushNotification
 {
     public class FirebaseManager : IPushNotificationService

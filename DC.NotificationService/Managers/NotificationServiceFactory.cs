@@ -1,6 +1,8 @@
 ﻿using DC.NotificationService.Enums;
 using DC.NotificationService.Interfaces;
 using DC.NotificationService.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace DC.NotificationService.Managers
 {
