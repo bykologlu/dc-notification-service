@@ -57,11 +57,6 @@ namespace DC.NotificationService.Extensions
                 settings = configuration.GetSection("EmailSettings") as EmailSettings;
             }
 
-            if (settings != null)
-            {
-	            services.AddSingleton<EmailSettings>(settings);
-            }
-
             services.AddScoped<Func<EmailProvider, IEmailService>>(serviceProvider => providerType =>
             {
                 switch (providerType)
@@ -73,7 +68,7 @@ namespace DC.NotificationService.Extensions
                 }
             });
 
-            services.AddScoped<SmtpManager>();
+            services.AddSingleton<SmtpManager>();
 
             return services;
         }
